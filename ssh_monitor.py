@@ -60,7 +60,8 @@ def read_last_updates(filepath, LIMIT, TIMEOUT, new_lines):
                     ips[ip] += 1
                     if ips[ip] >= LIMIT:
                         block_ip(ip)
-                        threading.Timer(TIMEOUT, unblock_ip, [ip]).start()
+                        if TIMEOUT !=0:
+                            threading.Timer(TIMEOUT, unblock_ip, [ip]).start()
                         return
                 else:
                     ips[ip] = 1
@@ -78,11 +79,11 @@ if __name__ == '__main__':
     while True:
         try:
             LIMIT = int(input("Enter number of attempts before blocking ip: "))
-            TIMEOUT = int(input("Enter time limit for blocking(leave blank for indefinite): "))
+            TIMEOUT = int(input("Enter time limit for blocking(0 for indefinite): "))
             if LIMIT <= 0:
                 print("Please enter a non zero non negative number")
                 continue
-            elif TIMEOUT <= 0:
+            elif TIMEOUT < 0:
                 print("Please enter a non zero non negative number")
                 continue
             else:
