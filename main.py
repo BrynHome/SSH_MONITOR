@@ -1,4 +1,4 @@
-import os, time, re, threading, iptc
+import os, time, re, threading
 
 ips = {}
 
@@ -17,21 +17,15 @@ def line_check(filepath):
 
 def unblock_ip(ip_addr):
     print("Unblocking ", ip_addr)
-    chain = iptc.Chain(iptc.Table(iptc.Table.FILTER), "INPUT")
-    rule = iptc.Rule()
-    rule.src = ip_addr
-    rule.create_target("DROP")
-    chain.delete_rule(rule)
+    cmd = "iptables -A INPUT -s " + ip_addr + " ip -j DROP"
+    os.system(cmd)
     return
 
 
 def block_ip(ip_addr):
     print("Over limit, blocking ", ip_addr)
-    chain = iptc.Chain(iptc.Table(iptc.Table.FILTER), "INPUT")
-    rule = iptc.Rule()
-    rule.src = ip_addr
-    rule.create_target("DROP")
-    chain.insert_rule(rule)
+    cmd = "iptables -D INPUT -s " + ip_addr + " ip -j DROP"
+    os.system(cmd)
     return
 
 
@@ -70,7 +64,7 @@ def read_last_updates(filepath, LIMIT, TIMEOUT, new_lines):
                     # print(attempts, " ", id)
                     ips[ip] += 1
                     if ips[ip] >= LIMIT:
-
+                        block_ip(ip)
                         threading.Timer(TIMEOUT, unblock_ip, [ip])
                         return
                 else:
