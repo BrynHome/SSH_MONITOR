@@ -330,9 +330,9 @@
   ('dis', '/usr/lib64/python3.9/dis.py', 'PYMODULE'),
   ('opcode', '/usr/lib64/python3.9/opcode.py', 'PYMODULE'),
   ('ast', '/usr/lib64/python3.9/ast.py', 'PYMODULE'),
-  ('_py_abc', '/usr/lib64/python3.9/_py_abc.py', 'PYMODULE'),
-  ('tracemalloc', '/usr/lib64/python3.9/tracemalloc.py', 'PYMODULE'),
   ('stringprep', '/usr/lib64/python3.9/stringprep.py', 'PYMODULE'),
+  ('tracemalloc', '/usr/lib64/python3.9/tracemalloc.py', 'PYMODULE'),
+  ('_py_abc', '/usr/lib64/python3.9/_py_abc.py', 'PYMODULE'),
   ('threading', '/usr/lib64/python3.9/threading.py', 'PYMODULE'),
   ('_threading_local', '/usr/lib64/python3.9/_threading_local.py', 'PYMODULE'),
   ('os', '/usr/lib64/python3.9/os.py', 'PYMODULE')])

@@ -107,7 +107,7 @@ if __name__ == '__main__':
                 continue
     except KeyboardInterrupt as e:
         print("Closing application")
-        pass
+    exit(0)
 
     # print("no update")
 
