@@ -76,36 +76,39 @@ def read_last_updates(filepath, LIMIT, TIMEOUT, new_lines):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    while True:
-        try:
-            LIMIT = int(input("Enter number of attempts before blocking ip: "))
-            TIMEOUT = int(input("Enter time limit for blocking(0 for indefinite): "))
-            if LIMIT <= 0:
-                print("Please enter a non zero non negative number")
+    try:
+        while True:
+            try:
+                LIMIT = int(input("Enter number of attempts before blocking ip: "))
+                TIMEOUT = int(input("Enter time limit for blocking(0 for indefinite): "))
+                if LIMIT <= 0:
+                    print("Please enter a non zero non negative number")
+                    continue
+                elif TIMEOUT < 0:
+                    print("Please enter a non zero non negative number")
+                    continue
+                else:
+                    break
+            except ValueError as e:
+                print("Please enter a valid number")
                 continue
-            elif TIMEOUT < 0:
-                print("Please enter a non zero non negative number")
-                continue
+
+        filepath = "/var/log/secure"
+        line_count = line_check(filepath)
+        while True:
+
+            check_line = line_check(filepath)
+            if check_line != line_count:
+                line_dif = check_line - line_count
+                line_count = check_line
+                read_last_updates(filepath, LIMIT, TIMEOUT, line_dif)
+
             else:
-                break
-        except ValueError as e:
-            print("Please enter a valid number")
-            continue
+                continue
+    except KeyboardInterrupt as e:
+        print("Closing application")
+        pass
 
-    filepath = "/var/log/secure"
-    line_count = line_check(filepath)
-
-
-    while True:
-
-        check_line = line_check(filepath)
-        if check_line != line_count:
-            line_dif = check_line - line_count
-            line_count = check_line
-            read_last_updates(filepath, LIMIT, TIMEOUT, line_dif)
-
-        else:
-            continue
     # print("no update")
 
 
